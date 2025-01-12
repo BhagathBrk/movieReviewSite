@@ -1,0 +1,35 @@
+.btnLiked {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 19px;
+  }
+  
+  .imgHover {
+    transition: transform 0.3s ease; 
+    position: relative; 
+  }
+
+  .imgHover:hover{
+    transform: scale(1.03);
+  }
+
+  @keyframes blink {
+    0% {
+      color: #4D340A; /* Red color */
+    }
+
+    50%{
+        transform: scale(1.2);
+        color: #3D3BF3;
+    }
+   
+    
+    100% {
+        color: #4D340A;/* Back to Red */
+    }
+  }
+  
+  .blink {
+    animation: blink 0.3s ease;
+  }

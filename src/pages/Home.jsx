@@ -45,7 +45,7 @@ const Home = () => {
   return (
     <>
 
-<div style={{paddingTop:"130px"}} className=''>
+<div style={{paddingTop:"150px"}} className=''>
 
   <div className='container p-5'>
         <div className='row g-5'>
@@ -102,7 +102,7 @@ const Home = () => {
 
             ))
             :
-            <div className='text-dark fw-bolder fs-5'>No Reviews</div>
+            <div className='text-dark fs-5'> <img width={'80px'} src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif" alt="" />Loading Reviews...</div>
           }
         
        

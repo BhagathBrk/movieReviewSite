@@ -28,6 +28,20 @@ const AddReview = () => {
         console.log(movieDetails);
 
         useEffect(() => {
+          const savedMovieDetails = sessionStorage.getItem("movieDetails");
+          if (savedMovieDetails) {
+            setMovieDetails(JSON.parse(savedMovieDetails));
+          }
+        }, []);
+
+        useEffect(() => {
+          const savedMovieDetails = sessionStorage.getItem("movieDetails");
+          if (savedMovieDetails) {
+            setMovieDetails(JSON.parse(savedMovieDetails));
+          }
+        }, []);
+
+        useEffect(() => {
           const formValid =
             !invalidDirName &&
             !invalidImgUrl &&
@@ -37,12 +51,12 @@ const AddReview = () => {
             movieDetails.mReview.trim() &&
             movieDetails.imgUrl.trim() &&
             movieDetails.uTubeLink.trim() &&
-            movieDetails.numOfStars;
+            movieDetails.numOfStars>0;
           setInvalidForm(!formValid);
         }, [invalidDirName, invalidImgUrl, invalidVideo, movieDetails]);
 
         const dirNameValidate = ()=>{
-          if(movieDetails.dirName.match(/^[a-zA-Z\s'-]+$/)){
+          if(movieDetails.dirName.match(/^[a-zA-ZÀ-ÖØ-öø-ÿ]+(?:[-' ][a-zA-ZÀ-ÖØ-öø-ÿ]+)*$/)){
             setInvalidDirName(false)
           }
           else{
@@ -51,7 +65,7 @@ const AddReview = () => {
         }
 
         const categoryValidate = ()=>{
-          if(movieDetails.mCategory.match(/^[a-zA-Z\s'-]+$/)){
+          if(movieDetails.mCategory.match(/^[a-zA-Z&/-]+(?: [a-zA-Z&/-]+)*$/)){
             setInvalidCategory(false)
           }
           else{
@@ -88,29 +102,32 @@ const AddReview = () => {
           })
         }
 
-        const handlemovieDetails = async ()=>{
-          const {imgUrl, uTubeLink, mTitle, mReview, dirName, numOfStars, mCategory} = movieDetails
-
-          if(imgUrl && uTubeLink && mTitle && mReview && dirName && numOfStars && mCategory){
-
-           
-
-            try{
-              const result = await saveMovieDetails(movieDetails)
-
-              if(result.status>=200 && result.status<300){
-
-                alert("Review Uploaded")
-                handleReset()
-
-              }
-            console.log(result);
+        const handlemovieDetails = async () => {
+          const { imgUrl, uTubeLink, mTitle, mReview, dirName, numOfStars, mCategory } = movieDetails;
         
-            }catch(err){
+          if (imgUrl && uTubeLink && mTitle && mReview && dirName && numOfStars && mCategory) {
+            try {
+              const result = await saveMovieDetails(movieDetails);
+        
+              if (result.status >= 200 && result.status < 300) {
+                alert("Review Uploaded");
+        
+                // Store movie details in sessionStorage temporarily
+                sessionStorage.setItem("movieDetails", JSON.stringify(movieDetails));
+        
+                handleReset();
+        
+                // Clear sessionStorage after successful submission
+                sessionStorage.removeItem("movieDetails");  // Clear the stored data
+              }
+              console.log(result);
+            } catch (err) {
               console.log(err);
-            }   
+            }
           }
-        }
+        };
+        
+        
           
 
         
@@ -119,7 +136,7 @@ const AddReview = () => {
         
 
   return (
-    <div style={{paddingTop:"130px", marginLeft:"50px"}}> <Link to={"/"} style={{color:"#4D340A"}} className="btn mt-5 "><i className="fa-solid fa-arrow-left fa-2x"></i></Link>
+    <div style={{paddingTop:"150px", marginLeft:"50px"}}> <Link to={"/"} style={{color:"#4D340A"}} className="btn mt-5 "><i className="fa-solid fa-arrow-left fa-2x position-fixed"></i></Link>
       <div style={{  color: "#4D340A" }} className="container px-5 w-100">
   
         <div className="row justify-content-center">

@@ -80,7 +80,7 @@ await likeCountAPI(id, newLikeCount)
     
 
   return (
-   <div style={{paddingTop:"130px", marginLeft:"50px"}}> <Link to={"/"} style={{color:"#4D340A"}} className="btn mt-5 "><i className="fa-solid fa-arrow-left fa-2x"></i></Link>
+   <div style={{paddingTop:"150px", marginLeft:"50px"}}> <Link to={"/"} style={{color:"#4D340A"}} className="btn mt-5 "><i className="fa-solid position-fixed fa-arrow-left fa-2x"></i></Link>
       <div style={{color: "#4D340A"}} className='container px-5 w-100'>
   
   <div className="row justify-content-center">
